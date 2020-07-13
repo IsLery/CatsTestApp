@@ -66,7 +66,7 @@ class CatsListFragment : CatsFragment() {
 
         //submitting new data to adapter from Flow
         lifecycleScope.launch {
-            viewModel.getCats().collectLatest {
+            viewModel.catsData.collectLatest {
                 adapter.submitData(it)
             }
         }

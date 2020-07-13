@@ -15,7 +15,6 @@ class CatsPagingSource(private val service: CatsApiService) : PagingSource<Int, 
         val pageCurr = params.key ?: STARTING_INDEX
         return try {
             val response = service.getImages(page = pageCurr, limit = params.loadSize)
-
             LoadResult.Page(
                 data = response,
                 prevKey = if (pageCurr == STARTING_INDEX) null else pageCurr - 1,

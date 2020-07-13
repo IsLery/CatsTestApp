@@ -14,18 +14,8 @@ import kotlinx.coroutines.withContext
 
 class CatsListViewModel(private val repository: CatsRepository) : ViewModel() {
 
-    private var catsData: Flow<PagingData<Cat>>? = null
-
-    fun getCats(): Flow<PagingData<Cat>> {
-        val lastData = catsData
-        if (lastData != null) {
-            return lastData
-        }
-        val newResult = repository.getCatsImagesStream()
-            .cachedIn(viewModelScope)
-        catsData = newResult
-        return newResult
-    }
+    val catsData: Flow<PagingData<Cat>> = repository.getCatsImagesStream()
+        .cachedIn(viewModelScope)
 
 
     fun addToFavourites(cat: Cat): Boolean {

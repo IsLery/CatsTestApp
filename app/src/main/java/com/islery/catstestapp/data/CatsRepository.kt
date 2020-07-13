@@ -16,12 +16,12 @@ class CatsRepository(private val service: CatsApiService, private val database: 
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false
-            )
-        ) {
-            CatsPagingSource(service)
-        }
-            .flow
+                enablePlaceholders = false,
+                initialLoadSize = NETWORK_PAGE_SIZE
+        ),
+            pagingSourceFactory =  {CatsPagingSource(service)}
+
+        ).flow
     }
 
     suspend fun addToFav(cat: Cat): Boolean {
