@@ -1,4 +1,4 @@
-package com.islery.catstestapp.presentation
+package com.islery.catstestapp.presentation.utils
 
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -24,6 +24,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+//Prior downloading image function, that creates image file, notifies user on the result of download
 fun downloadImage(context: Context, url: String, scope: CoroutineScope) {
     Glide.with(context)
         .download(url)
@@ -46,13 +47,24 @@ fun downloadImage(context: Context, url: String, scope: CoroutineScope) {
             ): Boolean {
                 resource?.let {
                     scope.launch {
-                        val success = downloadFile(resource, url, context)
+                        val success =
+                            downloadFile(
+                                resource,
+                                url,
+                                context
+                            )
                         if (success) {
                             val msg = context.getString(R.string.save_success)
-                            showImageToast(msg, context)
+                            showImageToast(
+                                msg,
+                                context
+                            )
                         } else {
                             val msg = context.getString(R.string.save_error)
-                            showImageToast(msg, context)
+                            showImageToast(
+                                msg,
+                                context
+                            )
                         }
                     }
                 }
@@ -63,6 +75,8 @@ fun downloadImage(context: Context, url: String, scope: CoroutineScope) {
         .submit()
 }
 
+//distinguishes SDK versions and reports success further
+@Suppress("DEPRECATION")
 suspend fun downloadFile(resource: File, url: String, context: Context): Boolean {
 
     val ext = MimeTypeMap.getFileExtensionFromUrl(url) ?: "jpg"
@@ -78,13 +92,20 @@ suspend fun downloadFile(resource: File, url: String, context: Context): Boolean
         val imageUri =
             resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
         imageUri?.let {
-            return copyFileQandHigher(resource, resolver, imageUri)
+            return copyFileQandHigher(
+                resource,
+                resolver,
+                imageUri
+            )
         }
     } else {
         val myDir =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)!!
         val endFile = File(myDir, fileName)
-        return copyFileBelowQ(resource, endFile)
+        return copyFileBelowQ(
+            resource,
+            endFile
+        )
     }
     return true
 }
@@ -133,7 +154,7 @@ suspend fun copyFileQandHigher(oldFile: File, resolver: ContentResolver, imageUr
         }
     }
 
-
+//shows result of image download
 fun showImageToast(message: String, context: Context) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
@@ -149,4 +170,3 @@ fun Context.checkWriteAndReadPermissions(): Boolean {
     ) == PackageManager.PERMISSION_GRANTED
             )
 }
-

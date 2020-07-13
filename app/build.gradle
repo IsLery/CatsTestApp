@@ -90,7 +90,7 @@ dependencies {
     //Paging
     implementation "androidx.paging:paging-runtime:$pagingVersion"
 
-//    //Dagger 2
-//    implementation 'com.google.dagger:dagger:2.14.1'
-//    kapt 'com.google.dagger:dagger-compiler:2.14.1'
+    //Dagger 2
+    implementation 'com.google.dagger:dagger:2.14.1'
+    kapt 'com.google.dagger:dagger-compiler:2.14.1'
 }

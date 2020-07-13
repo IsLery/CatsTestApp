@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="48dp"
+        android:contentDescription="@string/cat_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,27 +21,26 @@
 
     <ImageButton
         android:id="@+id/downloadBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
+        style="@style/catImageButton"
+        android:contentDescription="@string/save_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_download" />
+        android:src="@drawable/ic_baseline_arrow_downward_24" />
 
-    <CheckBox
-        android:id="@+id/to_favs_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@android:drawable/btn_star"
-        android:checked="false"
+    <ImageButton
+        android:id="@+id/changeFavsStatus"
+        style="@style/catImageButton"
+        android:contentDescription="@string/add_to_favourites"
+        android:src="@drawable/ic_baseline_star_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
 
     <ProgressBar
         android:id="@+id/progress_img"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"

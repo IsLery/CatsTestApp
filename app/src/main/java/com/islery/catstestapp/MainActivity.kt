@@ -15,13 +15,12 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter =
             ViewPagerAdapter(this)
 
+        //using ViewPager 2 to slide between fragments
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "All cats"
-                1 -> tab.text = "Favourite"
+                0 -> tab.text = getString(R.string.all_cats)
+                1 -> tab.text = getString(R.string.fav_cats)
             }
         }.attach()
     }
-
-
 }

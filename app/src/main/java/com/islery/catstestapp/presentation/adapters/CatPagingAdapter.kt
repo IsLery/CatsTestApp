@@ -1,15 +1,17 @@
 package com.islery.catstestapp.presentation.adapters
 
-import android.graphics.Bitmap
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.islery.catstestapp.data.model.Cat
 
-class CatPagingAdapter(val listener: (cat: Cat, isChecked: Boolean) -> Unit, val longClickListener: (url: String) -> Unit) :
+//adapter for images from network
+class CatPagingAdapter(
+    private val favsListener: (cat: Cat) -> Unit,
+    private val downloadListener: (url: String) -> Unit
+) :
     PagingDataAdapter<Cat, CatViewHolder>(
         CAT_COMPARATOR
     ) {
-
 
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
@@ -17,7 +19,7 @@ class CatPagingAdapter(val listener: (cat: Cat, isChecked: Boolean) -> Unit, val
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
-        return CatViewHolder.create(parent, listener, longClickListener)
+        return CatViewHolder.create(parent, favsListener, downloadListener)
     }
 
 }

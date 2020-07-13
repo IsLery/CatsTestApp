@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">CatsTestApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="save">Save image</string>
+    <string name="all_cats">All cats</string>
+    <string name="fav_cats">Favourite</string>
+    <string name="save_image">Save image to downloads</string>
+    <string name="add_to_favourites">Add image to favourites</string>
+    <string name="cat_image">Cat image</string>
+    <string name="save_success">Image was successfully saved!</string>
+    <string name="save_error">Opps! Something went wrong...</string>
+    <string name="empty_favs">Add your favourite cats here</string>
+    <string name="retry">Retry</string>
+    <string name="fav_success">Success!</string>
+    <string name="fav_error">Already there!</string>
 </resources>

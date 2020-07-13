@@ -15,10 +15,10 @@ import com.islery.catstestapp.data.model.Cat
 import com.islery.catstestapp.databinding.CatsRowBinding
 
 
-class CatViewHolder(
+class CatViewHolder private constructor(
     private val binding: CatsRowBinding,
-    val listener: (cat: Cat, isChecked: Boolean) -> Unit,
-    val longClickListener:  (url: String) -> Unit
+    val favsListener: (cat: Cat) -> Unit,
+    val downloadListener: (url: String) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(cat: Cat) {
@@ -29,19 +29,18 @@ class CatViewHolder(
                 .listener(reqListener)
                 .into(binding.imageView)
         }
-        binding.toFavsBtn.isChecked = cat.isFav
-        binding.toFavsBtn.setOnCheckedChangeListener { _, isChecked ->
-            listener(cat, isChecked)
+        //Add or delete from favourites
+        binding.changeFavsStatus.setOnClickListener {
+            favsListener(cat)
         }
-
+        //Save image to downloads
         binding.downloadBtn.setOnClickListener {
-           longClickListener(cat.url)
+            downloadListener(cat.url)
         }
-
-
     }
 
 
+    //show/hide progressBar
     private val reqListener = object : RequestListener<Drawable> {
         override fun onLoadFailed(
             e: GlideException?,
@@ -66,19 +65,19 @@ class CatViewHolder(
     }
 
     companion object {
+        //create viewHolder
         fun create(
             parent: ViewGroup,
-            listener: (cat: Cat, isChecked: Boolean) -> Unit,
-            longClickListener: (url: String) -> Unit
+            favsListener: (cat: Cat) -> Unit,
+            downloadListener: (url: String) -> Unit
         ): CatViewHolder {
             val binding = CatsRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return CatViewHolder(
                 binding,
-                listener,
-                longClickListener
+                favsListener,
+                downloadListener
             )
         }
-
     }
 
 }
