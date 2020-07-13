@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.islery.catstestapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,9 +48,11 @@ fun downloadImage(context: Context, url: String, scope: CoroutineScope) {
                     scope.launch {
                         val success = downloadFile(resource, url, context)
                         if (success) {
-                            showImageToast("Image was saved", context)
+                            val msg = context.getString(R.string.save_success)
+                            showImageToast(msg, context)
                         } else {
-                            showImageToast(context = context)
+                            val msg = context.getString(R.string.save_error)
+                            showImageToast(msg, context)
                         }
                     }
                 }
@@ -88,16 +91,6 @@ suspend fun downloadFile(resource: File, url: String, context: Context): Boolean
 
 
 suspend fun copyFileBelowQ(oldFile: File, newFile: File) =
-//    var sourceChannel:FileChannel? = null
-//    var destChannel :FileChannel? = null
-//    try {
-//        sourceChannel = FileInputStream(oldFile).channel
-//        destChannel = FileOutputStream(newFile).channel
-//        destChannel.transferFrom(sourceChannel,0,sourceChannel.size())
-//    }finally {
-//        sourceChannel?.close()
-//        destChannel?.close()
-//    }
     withContext(Dispatchers.IO) {
         var inputStream: FileInputStream? = null
         var outputStream: FileOutputStream? = null
@@ -141,7 +134,7 @@ suspend fun copyFileQandHigher(oldFile: File, resolver: ContentResolver, imageUr
     }
 
 
-fun showImageToast(message: String = "Opps! Something went wrong...", context: Context) {
+fun showImageToast(message: String, context: Context) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
 
