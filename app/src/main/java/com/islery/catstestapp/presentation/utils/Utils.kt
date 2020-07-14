@@ -10,6 +10,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -54,17 +55,9 @@ fun downloadImage(context: Context, url: String, scope: CoroutineScope) {
                                 context
                             )
                         if (success) {
-                            val msg = context.getString(R.string.save_success)
-                            showImageToast(
-                                msg,
-                                context
-                            )
+                            context.showToast(R.string.save_success)
                         } else {
-                            val msg = context.getString(R.string.save_error)
-                            showImageToast(
-                                msg,
-                                context
-                            )
+                            context.showToast(R.string.save_error)
                         }
                     }
                 }
@@ -155,8 +148,8 @@ suspend fun copyFileQandHigher(oldFile: File, resolver: ContentResolver, imageUr
     }
 
 //shows result of image download
-fun showImageToast(message: String, context: Context) {
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+fun Context.showToast(@StringRes idMessage: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, idMessage, duration).show()
 }
 
 fun Context.checkWriteAndReadPermissions(): Boolean {
